@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
+import { useAuthContext } from '../context/Authcontext';
 
 interface NavItem {
   id: string;
@@ -107,6 +108,12 @@ function Icon({ name, size = 20 }: { name: string; size?: number }) {
         <line x1="21" y1="21" x2="16.65" y2="16.65" />
       </svg>
     ),
+    user: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    ),
   };
 
   return icons[name] || null;
@@ -119,6 +126,16 @@ interface SidebarProps {
 
 function Sidebar({ activePage, onNavigate }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const { user, logout } = useAuthContext();
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((w) => w[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   return (
     <aside className="sidebar">
@@ -197,17 +214,42 @@ function Sidebar({ activePage, onNavigate }: SidebarProps) {
           ))}
         </div>
 
+        {/* User profile when logged in, login button when not */}
         <div className="sidebar-user">
-          <div className="user-avatar">
-            <span>ZA</span>
-          </div>
-          <div className="user-info">
-            <span className="user-name">Zanthera</span>
-            <span className="user-plan">Pro Plan</span>
-          </div>
-          <button className="user-menu-btn">
-            <Icon name="chevron-right" size={16} />
-          </button>
+          {user ? (
+            <>
+              <div className="user-avatar">
+                <span>{getInitials(user.username)}</span>
+              </div>
+              <div className="user-info">
+                <span className="user-name">{user.username}</span>
+                <span className="user-plan">Pro Plan</span>
+              </div>
+              <button
+                className="user-menu-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  logout();
+                  onNavigate('dashboard');
+                }}
+                title="Sign out"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+              </button>
+            </>
+          ) : (
+            <button
+              className="login-btn"
+              onClick={() => onNavigate('login')}
+            >
+              <Icon name="user" size={16} />
+              <span>Sign In</span>
+            </button>
+          )}
         </div>
       </div>
     </aside>

@@ -4,6 +4,7 @@ export const CreateHabit = async (req: Request, res: Response) => {
     try {
         const {title} = req.body
         
+        
 
     } catch (err){
         console.error(err);

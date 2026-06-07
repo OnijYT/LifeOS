@@ -13,6 +13,9 @@ class Habit extends Model<HabitsAtributs, HabitsCreateAtributs>{
     declare id: string;
     declare title: string;
     declare userId: string
+
+    declare readonly createdAt: Date
+    declare readonly updatedAt: Date
 }
 
 Habit.init({

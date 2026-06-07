@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
+import LoginPage from './assets/auth/login/LoginPage';
+import RegisterPage from './assets/auth/register/RegisterPage';
 import Tasks from './pages/Tasks';
 import Goals from './pages/Goals';
 import Habits from './pages/Habits';
@@ -34,6 +36,10 @@ function App() {
         return <LifeAreas />;
       case 'settings':
         return <Settings />;
+      case 'login':
+        return <LoginPage onNavigate={setActivePage} />;
+      case 'register':
+        return <RegisterPage onNavigate={setActivePage} />;
       default:
         return <Dashboard />;
     }

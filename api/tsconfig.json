@@ -1,5 +1,11 @@
 {
-	"compilerOptions": {
-		"moduleResolution": "NodeNext",
-	},
+  "compilerOptions": {
+    "target": "ES2022",                          // Инициализирует сборку в современный JS
+    "module": "commonjs",
+    "lib": ["es2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
 }

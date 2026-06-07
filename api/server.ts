@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import sequelize from './db'
 import express from 'express'
 import cors from 'cors'
+import Auth from './routes/Auth/route'
 
 // settings
 dotenv.config()
@@ -12,7 +13,7 @@ app.use(express.json())
 
 // app
 
-
+app.use('/api/auth', Auth)
 
 
 // settings
@@ -25,3 +26,5 @@ const start = async (): Promise<void> => {
         console.error(err)
     }
 }
+
+start()

@@ -268,3 +268,31 @@
   color: var(--text-secondary);
   background: var(--bg-card);
 }
+
+/* Login Button */
+.login-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  justify-content: center;
+}
+
+.login-btn:hover {
+  background: var(--primary-hover, #7c3aed);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
