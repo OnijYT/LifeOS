@@ -4,7 +4,7 @@ import { api } from '../../../api';
 import axios from 'axios';
 import s from './RegisterPage.module.css';
 import { useAuthContext } from '../../../context/Authcontext';
-import { ApiResponse, registerForm, User } from '../../../user';
+import { ApiResponse, registerForm, User } from '../../../interfaces';
 
 interface RegisterPageProps {
   onNavigate?: (page: string) => void;

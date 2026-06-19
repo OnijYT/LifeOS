@@ -22,3 +22,10 @@ export interface ApiResponse<T> {
     token: string
     message?: string
 }
+
+// interface Habit
+
+export interface HabitForm {
+    title: string
+    emodji: string
+}

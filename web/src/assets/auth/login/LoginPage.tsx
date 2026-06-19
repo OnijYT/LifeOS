@@ -4,7 +4,7 @@ import { api } from '../../../api';
 import axios from 'axios';
 import s from './LoginPage.module.css';
 import { useAuthContext } from '../../../context/Authcontext';
-import { ApiResponse, LoginForm, User } from '../../../user';
+import { ApiResponse, LoginForm, User } from '../../../interfaces';
 
 interface LoginPageProps {
   onNavigate?: (page: string) => void;

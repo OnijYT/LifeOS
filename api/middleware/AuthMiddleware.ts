@@ -19,7 +19,7 @@ export const AuthMiddleware = async (req: AuthRequest, res: Response, next: Next
     const token = authheader.split(' ')[1]
 
     try {
-        const decoded = jwt.verify(token, 'secret_keys_from_asadbek_hihi') as {id: string, email: string}
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_keys_from_asadbek_hihi') as {id: string, email: string}
         req.user = {
             id: decoded.id,
             email: decoded.email
