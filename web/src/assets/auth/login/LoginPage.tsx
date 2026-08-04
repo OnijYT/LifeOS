@@ -201,7 +201,7 @@ function LoginPage({ onNavigate }: LoginPageProps) {
                     type={showPassword ? 'text' : 'password'}
                     className={s.input}
                     placeholder="Enter your password"
-                    {...register('password')}
+                    {...register('password', { required: 'заполните поля' })}
                     autoComplete="current-password"
                   />
                   <button

@@ -1,16 +1,45 @@
 .habits-page {
   padding: var(--space-xl);
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  min-height: 100vh;
 }
 
-/* Header */
+/* ── Background decoration ── */
+.habits-page .bg-orb--1,
+.habits-page .bg-orb--2 {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.habits-page .bg-orb--1 {
+  top: -140px;
+  right: -90px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.07) 0%, transparent 70%);
+}
+
+.habits-page .bg-orb--2 {
+  bottom: -110px;
+  left: -70px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+}
+
+/* ── Header ── */
 .habits-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: var(--space-xl);
+  position: relative;
+  z-index: 1;
 }
 
 .habits-title {
@@ -26,6 +55,14 @@
   color: var(--text-secondary);
 }
 
+.habits-header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+/* ── Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -35,6 +72,9 @@
   font-size: 14px;
   font-weight: 600;
   transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
 }
 
 .btn--primary {
@@ -44,10 +84,26 @@
 
 .btn--primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px var(--primary-glow);
+  box-shadow: 0 4px 14px var(--primary-glow);
 }
 
-/* Progress Card */
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+.btn--secondary {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.btn--secondary:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+/* ── Progress Card ── */
 .habits-progress-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -58,6 +114,19 @@
   align-items: center;
   margin-bottom: var(--space-xl);
   gap: var(--space-lg);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.habits-progress-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
 }
 
 .habits-progress-card__left {
@@ -71,6 +140,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .habits-progress-ring__text {
@@ -115,11 +185,13 @@
   color: var(--text-muted);
 }
 
-/* Habits List */
+/* ── Habits List ── */
 .habits-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .habit-card {
@@ -130,18 +202,37 @@
   display: flex;
   align-items: center;
   gap: var(--space-lg);
-  transition: all var(--transition-fast);
+  transition: all 0.25s ease;
+  position: relative;
+  animation: habitCardIn 0.35s ease both;
+}
+
+@keyframes habitCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .habit-card:hover {
-  border-color: var(--border-light);
+  border-color: var(--border-hover);
   background: var(--bg-card-hover);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .habit-card--completed {
   border-color: rgba(34, 197, 94, 0.2);
 }
 
+.habit-card--completed:hover {
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+/* ── Habit Card Left ── */
 .habit-card__left {
   display: flex;
   align-items: center;
@@ -150,6 +241,7 @@
   min-width: 0;
 }
 
+/* ── Toggle Button ── */
 .habit-toggle {
   width: 24px;
   height: 24px;
@@ -159,24 +251,42 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all var(--transition-fast);
+  transition: all 0.2s ease;
   color: white;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
 }
 
 .habit-toggle:hover {
   border-color: var(--success);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
 }
 
 .habit-toggle--checked {
   background: var(--success);
   border-color: var(--success);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
 }
 
+.habit-toggle--checked:hover {
+  background: #16a34a;
+  border-color: #16a34a;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
+}
+
+/* ── Habit Icon ── */
 .habit-icon {
   font-size: 20px;
   flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* ── Habit Info ── */
 .habit-info {
   display: flex;
   flex-direction: column;
@@ -187,6 +297,9 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .habit-name--done {
@@ -199,49 +312,88 @@
   color: var(--text-muted);
 }
 
-/* Week Tracker */
+/* ── Cube Grid ── */
 .habit-card__center {
   flex-shrink: 0;
 }
 
-.habit-week {
+.habit-cube-grid {
   display: flex;
-  gap: var(--space-sm);
+  gap: 6px;
 }
 
-.habit-week__day {
+.habit-cube__day {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 
-.habit-week__label {
-  font-size: 10px;
+.habit-cube__label {
+  font-size: 9px;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
-.habit-week__dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.habit-cube {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
   background: var(--bg-elevated);
-  transition: all var(--transition-fast);
+  border: 1.5px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  padding: 0;
 }
 
-.habit-week__dot--filled {
+.habit-cube:hover:not(:disabled) {
+  transform: scale(1.15);
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.25);
+}
+
+.habit-cube:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.habit-cube--checked {
   background: var(--success);
-  box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+  border-color: var(--success);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.35);
 }
 
-/* Right side */
+.habit-cube--checked:hover:not(:disabled) {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+.habit-cube--today {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15);
+}
+
+.habit-cube--loading {
+  opacity: 0.5;
+  cursor: wait;
+  animation: cube-pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes cube-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+/* ── Right side ── */
 .habit-card__right {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+  align-items: center;
+  gap: var(--space-md);
   flex-shrink: 0;
 }
 
@@ -266,10 +418,116 @@
   color: var(--text-muted);
 }
 
-/* Responsive */
+/* ── Delete Button ── */
+.habit-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+.habit-card:hover .habit-delete-btn {
+  opacity: 1;
+}
+
+.habit-delete-btn:hover {
+  background: var(--danger-light);
+  border-color: rgba(239, 68, 68, 0.25);
+  color: var(--danger);
+  transform: scale(1.08);
+}
+
+.habit-delete-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── Empty State ── */
+.habits-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-md);
+  text-align: center;
+  gap: var(--space-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.habits-empty__icon {
+  font-size: 56px;
+  margin-bottom: var(--space-sm);
+  animation: emptyFloat 3s ease-in-out infinite;
+}
+
+@keyframes emptyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.habits-empty__title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.habits-empty__subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+  max-width: 320px;
+}
+
+/* ── Loading ── */
+.habits-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl);
+  gap: var(--space-md);
+  color: var(--text-secondary);
+  font-size: 14px;
+  min-height: 60vh;
+}
+
+.habits-loading__spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--bg-elevated);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .habits-page {
     padding: var(--space-md);
+  }
+
+  .habits-header {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .habits-header__right {
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .habits-progress-card {
@@ -292,7 +550,11 @@
     width: 100%;
   }
 
-  .habit-week {
+  .habit-cube-grid {
     justify-content: space-between;
+  }
+
+  .habit-delete-btn {
+    opacity: 1;
   }
 }

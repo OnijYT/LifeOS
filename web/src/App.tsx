@@ -6,6 +6,8 @@ import RegisterPage from './assets/auth/register/RegisterPage';
 import Tasks from './pages/Tasks';
 import Goals from './pages/Goals';
 import Habits from './pages/Habits';
+import CreateHabit from './pages/CreateHabit';
+import HabitTracker from './pages/HabitTracker';
 import Notes from './pages/Notes';
 import Calendar from './pages/Calendar';
 import Statistics from './pages/Statistics';
@@ -25,7 +27,11 @@ function App() {
       case 'goals':
         return <Goals />;
       case 'habits':
-        return <Habits />;
+        return <Habits onNavigate={setActivePage} />;
+      case 'create-habit':
+        return <CreateHabit onNavigate={setActivePage} />;
+      case 'habit-tracker':
+        return <HabitTracker onNavigate={setActivePage} />;
       case 'notes':
         return <Notes />;
       case 'calendar':

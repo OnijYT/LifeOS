@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Sidebar.css';
 import { useAuthContext } from '../context/Authcontext';
 
+
 interface NavItem {
   id: string;
   label: string;

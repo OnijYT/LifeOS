@@ -13,3 +13,14 @@ api.interceptors.request.use((config) => {
 
     return config
 })
+
+export const habitsApi = {
+    getAll: async () => {
+        const response = await api.get('/habits');
+        return response.data;
+    },
+    toggleCheck: async (id: string, date: string) => {
+        const response = await api.post(`/habits/${id}/check`, { targetDate: date });
+        return response.data;
+    }
+};
